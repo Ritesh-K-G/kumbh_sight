@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kumbh_sight/constants/color.dart';
+import 'package:kumbh_sight/features/client/carousel/slider.dart';
 import 'package:kumbh_sight/utils/helpers/appHelpers.dart';
 import 'package:kumbh_sight/utils/styles/buttons.dart';
 import 'package:kumbh_sight/utils/styles/text.dart';
@@ -29,16 +30,9 @@ class _homepageState extends State<homepage> {
                         Container(
                           margin: const EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0),
                           alignment: const Alignment(-0.6, 0.0),
-                          height: AppHelpers.screenHeight(context) * 0.2,
-                          decoration: const BoxDecoration(
-                            gradient: AppColors.linearGradient,
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/kumbh_sight.png'),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                          ),
-                          width: MediaQuery.of(context).size.width,
+                          // height: AppHelpers.screenHeight(context) * 0.2,
+                          // width: MediaQuery.of(context).size.width,
+                          child: SliderScreen(),
                         ),
                         const SizedBox(height: 20),
                         const Padding(

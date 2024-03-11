@@ -41,7 +41,7 @@ class _QueriesBodyState extends State<queriesBody> with TickerProviderStateMixin
             decoration: const BoxDecoration(
               gradient: AppColors.linearGradient,
               image: DecorationImage(
-                image: AssetImage('assets/images/kumbh_sight.png'),
+                image: AssetImage('images/past-queries.png'),
                 fit: BoxFit.cover,
               ),
               borderRadius: BorderRadius.all(Radius.circular(30.0)),

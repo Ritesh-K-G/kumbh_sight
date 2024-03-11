@@ -1,20 +1,86 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:kumbh_sight/utils/fileHandler/files.dart';
 import 'package:provider/provider.dart';
 import 'Firebase_options.dart';
 import 'constants/color.dart';
 import 'features/authentication/authScreen.dart';
 import 'features/client/clientNavbar.dart';
+import 'package:googleapis/pubsub/v1.dart';
+import 'package:googleapis_auth/auth_io.dart';
+import 'dart:io';
+import 'dart:convert';
 
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
+  subscribeToMessages();
+  sendLocations();
   runApp(const MyApp());
 }
+Future<void>sendLocations()async{
+  while(true) {
+    try {
+      await Dio().post('http://localhost:8080/locationupdate',
+          data: {'latitude': 23.34, 'longitude': 12.34,'user':'Ritesh'});
+    } catch (err) {
+      print(err);
+    }
+    await Future.delayed(Duration(minutes:5));
+  }
+}
+Future<void> subscribeToMessages() async {
+  const _projectId = 'prime-mechanic-413516';
+  const _subscriptionId = 'createNotifications-sub';
+  final credentialsJson = json.decode(await rootBundle.loadString('assets/cred.json'));
+  final credentials = ServiceAccountCredentials.fromJson(credentialsJson);
+
+  final client = await clientViaServiceAccount(credentials, [PubsubApi.pubsubScope]);
+
+  final pubsub = PubsubApi(client);
+  final subscriptionName = 'projects/$_projectId/subscriptions/$_subscriptionId';
+
+  final fileName = 'notifications.txt';
+  var temp=json.decode(await readFile(fileName));
+  List<String> pastMessages = [];
+  if(temp!=null)pastMessages=temp;
+  while (true) {
+    final pullRequest = PullRequest(
+      returnImmediately: false,
+      maxMessages: 10,
+    );
+
+    final pullResponse = await pubsub.projects.subscriptions.pull(pullRequest, subscriptionName);
+
+    if (pullResponse.receivedMessages != null) {
+      for (final receivedMessage in pullResponse.receivedMessages!) {
+        final messageData = receivedMessage.message!.data;
+        if (messageData != null) {
+          final message = utf8.decode(base64.decode(messageData));
+          if (pastMessages==Null||!pastMessages.contains(message)) {
+            print('Received message: $message');
+            showNotification(message);
+            pastMessages.add(message);
+          }
+        }
+      }
+
+      await writeFile(fileName, json.encode(pastMessages));
+    }
+
+    await Future.delayed(Duration(minutes: 1)); // Delay before pulling messages again
+  }
+}
+
+Future<void> showNotification(String payload) async {
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

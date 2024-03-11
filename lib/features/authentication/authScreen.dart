@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kumbh_sight/constants/color.dart';
+import 'package:kumbh_sight/features/authentication/body.dart';
 import 'package:kumbh_sight/features/authentication/header.dart';
 import 'package:kumbh_sight/features/authentication/provider/provider.dart';
 import 'package:kumbh_sight/utils/helpers/appHelpers.dart';
 import 'package:provider/provider.dart';
-
-import 'body.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});

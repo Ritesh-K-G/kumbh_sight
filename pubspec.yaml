@@ -19,6 +19,7 @@ dependencies:
   cloud_firestore: ^4.15.5
   firebase_core: ^2.25.4
   firebase_auth: ^4.17.4
+  expandable: ^5.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -38,6 +39,7 @@ flutter:
   assets:
      - assets/images/kumbh_sight.png
      - assets/icons/google.png
+     - assets/gifs/cleaning.gif
 
   # To add assets to your application, add an assets section, like this:
   #   - images/a_dot_ham.jpeg

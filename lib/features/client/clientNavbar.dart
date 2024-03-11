@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kumbh_sight/constants/color.dart';
+import 'package:kumbh_sight/features/client/PastQueries/queries.dart';
 import 'package:kumbh_sight/features/client/QueryForm/queryForm.dart';
+import 'package:kumbh_sight/features/client/homepage/homepage.dart';
 import 'package:provider/provider.dart';
 
 class ClientNavbar extends StatelessWidget {
   ClientNavbar({super.key});
 
   final List<dynamic> screens = [
-    const Placeholder(),
-    const Placeholder(),
+    const homepage(),
+    const queriesBody(),
     const QueryForm(),
   ];
 

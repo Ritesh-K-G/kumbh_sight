@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:googleapis/shared.dart';
 import 'package:kumbh_sight/constants/color.dart';
 import 'package:kumbh_sight/utils/helpers/appHelpers.dart';
 import 'package:kumbh_sight/utils/helpers/wrappers.dart';
 import 'package:kumbh_sight/utils/styles/buttons.dart';
 import 'package:kumbh_sight/utils/styles/text.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class QueryForm extends StatefulWidget {
   const QueryForm({super.key});
@@ -17,6 +19,7 @@ class _QueryFormState extends State<QueryForm> {
   String userID = "";
   String selectedValue = 'Category1';
   bool switchValue = false;
+  late GoogleMapController _mapController;
   final TextEditingController _descController = TextEditingController();
 
 
@@ -24,9 +27,19 @@ class _QueryFormState extends State<QueryForm> {
   void initState() {
     super.initState();
   }
+  LatLng _currentCenter = LatLng(23.0225, 72.5714);
+
+  void _moveMap(LatLng lngOffset) {
+    setState(() {
+      _currentCenter = lngOffset;
+    });
+    _mapController.animateCamera(
+      CameraUpdate.newLatLng(_currentCenter),
+    );
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return SingleChildScrollView(
         child: Container(
             padding: const EdgeInsets.all(20.0),
@@ -116,7 +129,37 @@ class _QueryFormState extends State<QueryForm> {
                                     width: 2.0,
                                   ),
                                 ),
-                                // child: const showMap()
+
+                                  child: GoogleMap(
+                                    onMapCreated: (controller) {
+                                      setState(() {
+                                        _mapController = controller;
+                                      });
+                                    },
+                                    onTap: _moveMap,
+                                    initialCameraPosition: CameraPosition(
+                                      target: _currentCenter,
+                                      zoom: 12,
+                                    ),
+                                    markers: {
+                                      Marker(
+                                        markerId: MarkerId('marker_id'),
+                                        position: _currentCenter,
+                                        infoWindow: InfoWindow(title: 'Marker Title', snippet: 'Marker Snippet'),
+                                      ),
+                                    },
+                                    circles: {
+                                      Circle(
+                                        circleId: CircleId('circle_id'),
+                                        center: _currentCenter,
+                                        radius: 1000, // Radius in meters
+                                        fillColor: Colors.blue.withOpacity(0.3),
+                                        strokeWidth: 2,
+                                        strokeColor: Colors.blue,
+                                      ),
+                                    },
+                                  ),
+
                             ),
                             const SizedBox(height: 20),
                             Row(

@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kumbh_sight/utils/fileHandler/files.dart';
+import 'package:flutter_sms/flutter_sms.dart';
 import 'package:provider/provider.dart';
 import 'Firebase_options.dart';
 import 'constants/color.dart';
@@ -14,8 +15,6 @@ import 'package:googleapis/pubsub/v1.dart';
 import 'package:googleapis_auth/auth_io.dart';
 import 'dart:io';
 import 'dart:convert';
-
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +37,11 @@ Future<void>sendLocations()async{
 Future<void> subscribeToMessages() async {
   const _projectId = 'prime-mechanic-413516';
   const _subscriptionId = 'createNotifications-sub';
+  String _result = await sendSMS(message: 'Hey', recipients: ['8328897391'],sendDirect:true)
+      .catchError((onError) {
+    print(onError);
+  });
+  print(_result);
   final credentialsJson = json.decode(await rootBundle.loadString('assets/cred.json'));
   final credentials = ServiceAccountCredentials.fromJson(credentialsJson);
 

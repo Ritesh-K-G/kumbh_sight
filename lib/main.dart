@@ -9,6 +9,7 @@ import 'package:flutter_sms/flutter_sms.dart';
 import 'package:provider/provider.dart';
 import 'Firebase_options.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'constants/color.dart';
 import 'features/authentication/authScreen.dart';
 import 'features/client/clientNavbar.dart';
@@ -20,9 +21,9 @@ import 'dart:convert';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
-  subscribeToMessages();
-  sendLocations();
-  runApp(const MyApp());
+  var smsPermissionStatus = await Permission.sms.request();
+  var notificationPermissionStatus = await Permission.notification.request();
+  var locationPermissionStatus = await Permission.location.request();
 }
 Future<void>sendLocations()async{
   while(true) {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   static const Color myBlue = Color.fromARGB(255, 58, 100, 228);
   static const Color Bhagwa = Color(0xFFF89327);
+  static const Color myBackgroundGreen = Color(0xFFedfbf8);
   static const Color splashBlue = Color.fromARGB(255, 70, 136, 220);
   static const Color myGreen = Color(0xFF35899B);
   static const Color myTextBoxGray = Color(0xFFF2F3F3);

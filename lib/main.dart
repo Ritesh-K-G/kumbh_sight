@@ -15,14 +15,13 @@ import 'features/authentication/authScreen.dart';
 import 'features/client/clientNavbar.dart';
 import 'package:googleapis/pubsub/v1.dart';
 import 'package:googleapis_auth/auth_io.dart';
-import 'dart:io';
 import 'dart:convert';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
-  subscribeToMessages();
-  sendLocations();
+  // subscribeToMessages();
+  // sendLocations();
   runApp(const MyApp());
 }
 Future<void>sendLocations()async{
@@ -123,7 +122,8 @@ class AuthCheck extends StatefulWidget {
 class _AuthCheckState extends State<AuthCheck> {
   @override
   Widget build(BuildContext context) {
-    return const AuthScreen();
+    // return const AuthScreen();
+    return resolverNavbar();
     // return StreamBuilder<User?>(
     //   stream: FirebaseAuth.instance.authStateChanges(),
     //   builder: (context, snapshot) {

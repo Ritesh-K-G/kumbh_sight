@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:kumbh_sight/constants/color.dart';
-import 'package:kumbh_sight/features/client/PastQueries/resolved/resolved.dart';
-import 'package:kumbh_sight/features/client/PastQueries/unresolved/unresolved.dart';
+import 'package:kumbh_sight/features/resolver/pastQueries/resolved/resolved.dart';
+import 'package:kumbh_sight/features/resolver/pastQueries/unresolved/unresolved.dart';
 import 'package:kumbh_sight/utils/helpers/appHelpers.dart';
 import 'package:kumbh_sight/utils/styles/text.dart';
 
-class queriesBody extends StatefulWidget {
-  const queriesBody({super.key});
+class cleanerqueriesBody extends StatefulWidget {
+  const cleanerqueriesBody({super.key});
 
   @override
-  State<queriesBody> createState() => _QueriesBodyState();
+  State<cleanerqueriesBody> createState() => _cleanerqueriesBodyState();
 }
 
-class _QueriesBodyState extends State<queriesBody> with TickerProviderStateMixin {
+class _cleanerqueriesBodyState extends State<cleanerqueriesBody> with TickerProviderStateMixin {
   late TabController _tabController;
-  late List<Widget> tabs = [UnresolvedList(), resolvedList()];
+  late List<Widget> tabs = [CleanerUnresolvedList(), CleanerResolvedList()];
 
   @override
   void initState() {

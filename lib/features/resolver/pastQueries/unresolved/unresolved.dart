@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:kumbh_sight/models/queryDetails.dart';
 import 'package:kumbh_sight/utils/widgets/card.dart';
 
-class resolvedList extends StatefulWidget {
+class CleanerUnresolvedList extends StatefulWidget {
   @override
-  _resolvedListState createState() => _resolvedListState();
+  _CleanerUnresolvedListState createState() => _CleanerUnresolvedListState();
 }
 
-class _resolvedListState extends State<resolvedList> {
+class _CleanerUnresolvedListState extends State<CleanerUnresolvedList> {
   final List<CardDetail> cardDetails = [
     CardDetail(
       category: 'Category 1',

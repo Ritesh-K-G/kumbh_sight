@@ -164,7 +164,35 @@ class _SignInState extends State<SignIn> {
                             ),
                           ),
                         ],
-                      )
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            onPressed: true
+                                ? () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ClientNavbar()));
+                            }
+                                : null,
+                            style: AppButtonStyles.sosButton.copyWith(
+                              minimumSize: MaterialStatePropertyAll(Size(
+                                  AppHelpers.screenWidth(context) * 0.8, 50)),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                            ),
+                            child: asyncCall
+                                ? const CircularProgressIndicator(color: Colors.white)
+                                : const Text(
+                              "SOS",
+                              style: AppTextStyles.buttontext,
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),

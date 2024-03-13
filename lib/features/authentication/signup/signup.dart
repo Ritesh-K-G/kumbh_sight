@@ -28,6 +28,7 @@ class _SignUpState extends State<SignUp> {
   bool hideConfirmPassword = true;
   bool asyncCall = false;
   bool isCleaner = false;
+  String selectedValue = 'Category1';
 
   final _formKey = GlobalKey<FormState>();
 
@@ -83,7 +84,7 @@ class _SignUpState extends State<SignUp> {
                   AppWrappers.inputFieldWrapper(TextFormField(
                     controller: _emailController,
                     decoration: const InputDecoration(
-                        hintText: "yourmail@oceanGuard.com",
+                        hintText: "yourmail@kumbhSight.com",
                         border: InputBorder.none,
                         errorMaxLines: 2),
                     style: AppTextStyles.formInputTextStyle,
@@ -246,6 +247,44 @@ class _SignUpState extends State<SignUp> {
                         ],
                       ),
                     ],
+                  ),
+                  Visibility(
+                      visible: isCleaner,
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 10),
+                          AppWrappers.dropdownWrapper(
+                            items: [
+                              const DropdownMenuItem(
+                                value: 'Category1',
+                                child: Text('Category1',
+                                    style: AppTextStyles.dropdownText),
+                              ),
+                              const DropdownMenuItem(
+                                value: 'Category2',
+                                child: Text('Category2',
+                                    style: AppTextStyles.dropdownText),
+                              ),
+                              const DropdownMenuItem(
+                                value: 'Category3',
+                                child: Text('Category3',
+                                    style: AppTextStyles.dropdownText),
+                              ),
+                              const DropdownMenuItem(
+                                value: 'Category4',
+                                child: Text('Category4',
+                                    style: AppTextStyles.dropdownText),
+                              ),
+                            ],
+                            value: selectedValue,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedValue = value;
+                              });
+                            },
+                          ),
+                        ],
+                      )
                   ),
                   const SizedBox(height: 20),
                   Row(

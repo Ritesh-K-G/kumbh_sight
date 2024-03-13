@@ -8,6 +8,12 @@ class AppButtonStyles {
     fixedSize: MaterialStatePropertyAll(Size(200, 50)),
   );
 
+  static const ButtonStyle sosButton = ButtonStyle(
+    backgroundColor: MaterialStatePropertyAll(Colors.red),
+    foregroundColor: MaterialStatePropertyAll(Colors.white),
+    fixedSize: MaterialStatePropertyAll(Size(200, 50)),
+  );
+
   static const ButtonStyle googleButton = ButtonStyle(
     backgroundColor: MaterialStatePropertyAll(AppColors.white),
     foregroundColor: MaterialStatePropertyAll(AppColors.myBlack),

@@ -44,11 +44,7 @@ Future<void>sendLocations()async{
 Future<void> subscribeToMessages() async {
   const _projectId = 'prime-mechanic-413516';
   const _subscriptionId = 'createNotifications-sub';
-  String _result = await sendSMS(message: 'Hey', recipients: ['8328897391'],sendDirect:true)
-      .catchError((onError) {
-    print(onError);
-  });
-  print(_result);
+
   final credentialsJson = json.decode(await rootBundle.loadString('assets/cred.json'));
   final credentials = ServiceAccountCredentials.fromJson(credentialsJson);
 
@@ -149,7 +145,7 @@ class _AuthCheckState extends State<AuthCheck> {
   @override
   Widget build(BuildContext context) {
     // return const AuthScreen();
-    return adminNavbar();
+    return ClientNavbar();
     // return StreamBuilder<User?>(
     //   stream: FirebaseAuth.instance.authStateChanges(),
     //   builder: (context, snapshot) {

@@ -1,5 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:googleapis/shared.dart';
+import 'package:flutter_sms/flutter_sms.dart';
 import 'package:kumbh_sight/constants/color.dart';
 import 'package:kumbh_sight/utils/helpers/appHelpers.dart';
 import 'package:kumbh_sight/utils/helpers/wrappers.dart';
@@ -16,8 +17,8 @@ class QueryForm extends StatefulWidget {
 class _QueryFormState extends State<QueryForm> {
   double _sliderValue = 1.0;
   final _formkey = GlobalKey<FormState>();
-  String userID = "";
-  String selectedValue = 'Category1';
+  String userID = 'ishaan';
+  String selectedValue = 'LostAndFoundService';
   bool switchValue = false;
   late GoogleMapController _mapController;
   final TextEditingController _descController = TextEditingController();
@@ -27,7 +28,7 @@ class _QueryFormState extends State<QueryForm> {
   void initState() {
     super.initState();
   }
-  LatLng _currentCenter = LatLng(23.0225, 72.5714);
+  LatLng _currentCenter = LatLng(25.4347, 81.7650);
 
   void _moveMap(LatLng lngOffset) {
     setState(() {
@@ -75,23 +76,23 @@ class _QueryFormState extends State<QueryForm> {
                             AppWrappers.dropdownWrapper(
                               items: [
                                 const DropdownMenuItem(
-                                  value: 'Category1',
-                                  child: Text('Category1',
+                                  value: 'LostAndFoundService',
+                                  child: Text('Lost and Found service',
                                       style: AppTextStyles.dropdownText),
                                 ),
                                 const DropdownMenuItem(
-                                  value: 'Category2',
-                                  child: Text('Category2',
+                                  value: 'Healthcare',
+                                  child: Text('Healthcare',
                                       style: AppTextStyles.dropdownText),
                                 ),
                                 const DropdownMenuItem(
-                                  value: 'Category3',
-                                  child: Text('Category3',
+                                  value: 'LawEnforcement',
+                                  child: Text('Law Enforcement',
                                       style: AppTextStyles.dropdownText),
                                 ),
                                 const DropdownMenuItem(
-                                  value: 'Category4',
-                                  child: Text('Category4',
+                                  value: 'Hygiene',
+                                  child: Text('Hygiene',
                                       style: AppTextStyles.dropdownText),
                                 ),
                               ],
@@ -203,21 +204,98 @@ class _QueryFormState extends State<QueryForm> {
                                           );
                                         },
                                       );
+
+                                      String suggestions = '';
+                                      if (switchValue) {
+                                        try {
+                                          String _result = await sendSMS(
+                                            message: 'KumbhSight Add $userID '
+                                                '${_currentCenter.latitude} ${_currentCenter.longitude} '
+                                                '$_sliderValue $selectedValue ${_descController.text}',
+                                            recipients: ['9306786838'],
+                                            sendDirect: true,
+                                          );
+                                          suggestions = 'SMS sent successfully';
+                                          print(_result);
+                                        } catch (err) {
+                                          suggestions = 'Some error occurred';
+                                        } finally {
+                                          Navigator.pop(context);
+                                          _descController.clear();
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text('Response'),
+                                                content: Text(suggestions),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                    child: const Text('OK'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        }
+                                      } else {
+                                        try {
+                                          final dio = Dio();
+                                          final res = await dio.post(
+                                            'https://8ca2-2409-40e3-d-3003-d912-c00e-e862-44f0.ngrok-free.app/addComplaint',
+                                            data: {
+                                              'user': userID,
+                                              'description': _descController.text,
+                                              'latitude': _currentCenter.latitude,
+                                              'longitude': _currentCenter.longitude,
+                                              'urgency': _sliderValue,
+                                              'category': selectedValue,
+                                            },
+                                          );
+                                          print(res.data);
+                                          suggestions = res.data['complaintID'];
+                                        } catch (err) {
+                                          suggestions = 'Some Error occurred';
+                                        } finally {
+                                          Navigator.pop(context);
+                                          _descController.clear();
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text('Response'),
+                                                content: Text(suggestions),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                    child: const Text('OK'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        }
+                                      }
                                     }
                                   },
                                   style: AppButtonStyles.authButtons.copyWith(
-                                      backgroundColor:
-                                      MaterialStateProperty.all(AppColors.Bhagwa),
-                                      minimumSize: MaterialStateProperty.all(
-                                          Size(AppHelpers.screenWidth(context) *
-                                              0.8,
-                                              50)),
-                                      shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(10.0),
-                                          ))),
+                                    backgroundColor: MaterialStateProperty.all(AppColors.Bhagwa),
+                                    minimumSize: MaterialStateProperty.all(
+                                      Size(
+                                        AppHelpers.screenWidth(context) * 0.8,
+                                        50,
+                                      ),
+                                    ),
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  ),
                                   child: const Text(
                                     "Submit",
                                     style: AppTextStyles.buttontext,

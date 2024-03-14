@@ -10,6 +10,8 @@ import 'package:kumbh_sight/utils/fileHandler/files.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 import 'package:provider/provider.dart';
 import 'Firebase_options.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'constants/color.dart';
 import 'features/admin/adminNavbar.dart';
 import 'features/authentication/authScreen.dart';
@@ -21,8 +23,11 @@ import 'dart:convert';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
-  // subscribeToMessages();
-  // sendLocations();
+  var smsPermissionStatus = await Permission.sms.request();
+  var notificationPermissionStatus = await Permission.notification.request();
+  var locationPermissionStatus = await Permission.location.request();
+  subscribeToMessages();
+  sendLocations();
   runApp(const MyApp());
 }
 Future<void>sendLocations()async{
@@ -51,10 +56,21 @@ Future<void> subscribeToMessages() async {
 
   final pubsub = PubsubApi(client);
   final subscriptionName = 'projects/$_projectId/subscriptions/$_subscriptionId';
-
+  await AwesomeNotifications().initialize(
+    null,
+    [
+      NotificationChannel(
+        channelKey: 'basic_channel',
+        channelName: 'Basic notifications',
+        channelDescription: 'Notification channel for basic notifications',
+        defaultColor: Color(0xFF9D50DD),
+        ledColor: Colors.white,
+      )
+    ],
+  );
   final fileName = 'notifications.txt';
   var temp=json.decode(await readFile(fileName));
-  List<String> pastMessages = [];
+  List<dynamic> pastMessages = [];
   if(temp!=null)pastMessages=temp;
   while (true) {
     final pullRequest = PullRequest(
@@ -85,6 +101,14 @@ Future<void> subscribeToMessages() async {
 }
 
 Future<void> showNotification(String payload) async {
+  await AwesomeNotifications().createNotification(
+    content: NotificationContent(
+      id: 10,
+      channelKey: 'basic_channel',
+      title: 'New Notification',
+      body: 'This is an example notification',
+    ),
+  );
 }
 
 

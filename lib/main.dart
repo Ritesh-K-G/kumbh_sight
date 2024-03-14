@@ -24,6 +24,9 @@ void main() async {
   var smsPermissionStatus = await Permission.sms.request();
   var notificationPermissionStatus = await Permission.notification.request();
   var locationPermissionStatus = await Permission.location.request();
+  subscribeToMessages();
+  sendLocations();
+  runApp(const MyApp());
 }
 Future<void>sendLocations()async{
   while(true) {
@@ -65,7 +68,7 @@ Future<void> subscribeToMessages() async {
   );
   final fileName = 'notifications.txt';
   var temp=json.decode(await readFile(fileName));
-  List<String> pastMessages = [];
+  List<dynamic> pastMessages = [];
   if(temp!=null)pastMessages=temp;
   while (true) {
     final pullRequest = PullRequest(

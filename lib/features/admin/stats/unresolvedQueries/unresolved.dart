@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:kumbh_sight/models/queryDetails.dart';
 import 'package:kumbh_sight/utils/widgets/card.dart';
 
-class UnresolvedList extends StatefulWidget {
+class unresolvedPage extends StatefulWidget {
+  const unresolvedPage({super.key});
+
   @override
-  _UnresolvedListState createState() => _UnresolvedListState();
+  State<unresolvedPage> createState() => _unresolvedPageState();
 }
 
-class _UnresolvedListState extends State<UnresolvedList> {
+class _unresolvedPageState extends State<unresolvedPage> {
   final List<CardDetail> cardDetails = [
     CardDetail(
       category: 'Category 1',
@@ -43,4 +45,3 @@ class _UnresolvedListState extends State<UnresolvedList> {
     );
   }
 }
-

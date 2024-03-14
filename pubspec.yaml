@@ -48,6 +48,7 @@ flutter:
   assets:
      - assets/images/kumbh_sight.png
      - assets/images/past-queries.png
+     - assets/images/resolvers.png
      - assets/icons/google.png
      - assets/cred.json
      - assets/gifs/cleaning.gif

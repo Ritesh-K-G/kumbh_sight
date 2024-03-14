@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:kumbh_sight/models/queryDetails.dart';
-import 'package:kumbh_sight/utils/widgets/card.dart';
+import 'package:kumbh_sight/utils/widgets/personCards.dart';
 
-class UnresolvedList extends StatefulWidget {
+class resolverList extends StatefulWidget {
+  const resolverList({super.key});
+
   @override
-  _UnresolvedListState createState() => _UnresolvedListState();
+  State<resolverList> createState() => _resolverListState();
 }
 
-class _UnresolvedListState extends State<UnresolvedList> {
+class _resolverListState extends State<resolverList> {
   final List<CardDetail> cardDetails = [
     CardDetail(
       category: 'Category 1',
@@ -31,16 +33,14 @@ class _UnresolvedListState extends State<UnresolvedList> {
       imageUrl: 'assets/gifs/cleaning.gif',
     ),
   ];
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: cardDetails.length,
       itemBuilder: (context, index) {
         final cardDetail = cardDetails[index];
-        return CardItem(cardDetail: cardDetail);
+        return personCard(cardDetail: cardDetail);
       },
     );
   }
 }
-

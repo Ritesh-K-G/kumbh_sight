@@ -11,6 +11,7 @@ import 'package:flutter_sms/flutter_sms.dart';
 import 'package:provider/provider.dart';
 import 'Firebase_options.dart';
 import 'constants/color.dart';
+import 'features/admin/adminNavbar.dart';
 import 'features/authentication/authScreen.dart';
 import 'features/client/clientNavbar.dart';
 import 'package:googleapis/pubsub/v1.dart';
@@ -96,7 +97,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => NavbarIndexProvider()),
-        ChangeNotifierProvider(create: (context) => resolverNavbarIndexProvider())
+        ChangeNotifierProvider(create: (context) => resolverNavbarIndexProvider()),
+        ChangeNotifierProvider(create: (context) => adminNavbarIndexProvider()),
       ],
       child: MaterialApp(
           title: 'Kumbh Sight',
@@ -123,7 +125,7 @@ class _AuthCheckState extends State<AuthCheck> {
   @override
   Widget build(BuildContext context) {
     // return const AuthScreen();
-    return resolverNavbar();
+    return adminNavbar();
     // return StreamBuilder<User?>(
     //   stream: FirebaseAuth.instance.authStateChanges(),
     //   builder: (context, snapshot) {

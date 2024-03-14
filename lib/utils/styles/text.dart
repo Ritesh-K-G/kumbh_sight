@@ -24,6 +24,12 @@ class AppTextStyles {
     fontWeight: FontWeight.normal, // instead of w400
   );
 
+  static const TextStyle notificationHeader = TextStyle(
+      color: AppColors.darkBlue,
+      fontSize: AppSizes.headingsm,
+      fontFamily: 'HindJalandhar-Bold',
+      fontWeight: FontWeight.w900);
+
   static const TextStyle formLabelStyle = TextStyle(
     color: AppColors.myCommentGray,
     fontFamily: 'Karla',

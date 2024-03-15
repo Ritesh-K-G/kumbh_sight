@@ -7,7 +7,7 @@ import 'package:kumbh_sight/utils/helpers/wrappers.dart';
 import 'package:kumbh_sight/utils/styles/buttons.dart';
 import 'package:kumbh_sight/utils/styles/text.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
+import 'package:geolocator/geolocator.dart';
 class QueryForm extends StatefulWidget {
   const QueryForm({super.key});
 
@@ -22,13 +22,27 @@ class _QueryFormState extends State<QueryForm> {
   bool switchValue = false;
   late GoogleMapController _mapController;
   final TextEditingController _descController = TextEditingController();
+  late bool _serviceEnabled;
+  LatLng _currentCenter = LatLng(15.4347, 81.7650);
+  Future<Position> _determinePosition() async {
 
-
+    return await Geolocator.getCurrentPosition();
+  }
   @override
   void initState() {
     super.initState();
+    _determinePosition().then((Position current){
+      print(current);
+      print("A\nSDJhjfbdzjBKGJVHFDSKBFHVJDSMFBJSJVFNBMSHVJCGVJKYFUDHXGNCHJFDHGXCHJFYDTHXGNCHJTDGXNCHJTDYHGXC");
+      setState(() {
+        _currentCenter = LatLng(current.latitude, current.longitude);
+      });
+      _mapController.animateCamera(
+        CameraUpdate.newLatLng(_currentCenter),
+      );
+    });
   }
-  LatLng _currentCenter = LatLng(25.4347, 81.7650);
+
 
   void _moveMap(LatLng lngOffset) {
     setState(() {

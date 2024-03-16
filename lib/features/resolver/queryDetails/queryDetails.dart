@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kumbh_sight/constants/color.dart';
+import 'package:kumbh_sight/constants/url.dart';
 import 'package:kumbh_sight/models/queryDetails.dart';
 import 'package:kumbh_sight/utils/helpers/appHelpers.dart';
 import 'package:kumbh_sight/utils/styles/buttons.dart';
 import 'package:kumbh_sight/utils/styles/text.dart';
+import 'package:dio/dio.dart';
 
 class queryDetails extends StatefulWidget {
   final CardDetail cardDetail;
@@ -18,15 +20,12 @@ class queryDetails extends StatefulWidget {
 class _queryDetailsState extends State<queryDetails> {
 
   late GoogleMapController _mapController;
-  LatLng _currentCenter = LatLng(23.0225, 72.5714);
+  LatLng _currentCenter = LatLng(1.2,3.2);
 
-  void _moveMap(LatLng lngOffset) {
-    setState(() {
-      _currentCenter = lngOffset;
-    });
-    _mapController.animateCamera(
-      CameraUpdate.newLatLng(_currentCenter),
-    );
+  @override
+  void initState(){
+    super.initState();
+    _currentCenter=LatLng(widget.cardDetail.latitude, widget.cardDetail.longitude);
   }
 
   @override
@@ -128,7 +127,6 @@ class _queryDetailsState extends State<queryDetails> {
                           _mapController = controller;
                         });
                       },
-                      onTap: _moveMap,
                       initialCameraPosition: CameraPosition(
                         target: _currentCenter,
                         zoom: 12,
@@ -138,16 +136,6 @@ class _queryDetailsState extends State<queryDetails> {
                           markerId: MarkerId('marker_id'),
                           position: _currentCenter,
                           infoWindow: InfoWindow(title: 'Marker Title', snippet: 'Marker Snippet'),
-                        ),
-                      },
-                      circles: {
-                        Circle(
-                          circleId: CircleId('circle_id'),
-                          center: _currentCenter,
-                          radius: 1000, // Radius in meters
-                          fillColor: Colors.blue.withOpacity(0.3),
-                          strokeWidth: 2,
-                          strokeColor: Colors.blue,
                         ),
                       },
                     ),
@@ -174,6 +162,18 @@ class _queryDetailsState extends State<queryDetails> {
                               );
                             },
                           );
+                          try {
+                            await Dio().post('${url.link}/resolveComplaint',
+                                data: {
+                                  'complaintID': widget.cardDetail.queryID
+                                });
+                          }catch(err){
+
+                          }finally{
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+
+                          }
                         },
                         style: AppButtonStyles.authButtons.copyWith(
                             backgroundColor:

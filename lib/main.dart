@@ -26,9 +26,6 @@ void main() async {
   var smsPermissionStatus = await Permission.sms.request();
   var notificationPermissionStatus = await Permission.notification.request();
   var locationPermissionStatus = await Permission.location.request();
-  if(!locationPermissionStatus.isGranted){
-    print("GDEUJFEBS");
-  }
   subscribeToMessages();
   sendLocations();
   runApp(const MyApp());

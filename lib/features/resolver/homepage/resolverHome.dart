@@ -30,7 +30,7 @@ class _CleanerhomepageState extends State<Cleanerhomepage> {
                           Container(
                             margin: const EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0),
                             alignment: const Alignment(-0.6, 0.0),
-                            child: SliderScreen(),
+                            child: const SliderScreen(),
                           ),
                           const SizedBox(height: 20),
                           const Padding(

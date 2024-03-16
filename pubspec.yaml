@@ -55,6 +55,17 @@ flutter:
      - assets/icons/google.png
      - assets/cred.json
      - assets/gifs/cleaning.gif
+     - assets/images/cleaner_1.png
+     - assets/images/cleaner_2.png
+     - assets/images/doctor.png
+     - assets/images/home_1.png
+     - assets/images/home_2.png
+     - assets/images/home_3.png
+     - assets/images/home_4.png
+     - assets/images/lost.png
+     - assets/images/police_1.png
+     - assets/images/police_2.png
+     - assets/images/resolvers_1.png
 
   # To add assets to your application, add an assets section, like this:
   #   - images/a_dot_ham.jpeg

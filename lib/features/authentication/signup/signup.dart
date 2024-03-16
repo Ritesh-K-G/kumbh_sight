@@ -303,7 +303,8 @@ class _SignUpState extends State<SignUp> {
                                 'firstName': _firstNameController.text,
                                 'lastName': _lastNameController.text,
                                 'authority': 1,
-                                'profilePic':"https://firebasestorage.googleapis.com/v0/b/oceanguard-5aea0.appspot.com/o/icon.jfif?alt=media&token=bcee2c14-340c-428d-8135-16f958e42e7e"
+                                'category':selectedValue,
+                                'assignedLocation':"jhalwa"
                               };
 
                               // Store additional user data in Firestore
@@ -322,7 +323,6 @@ class _SignUpState extends State<SignUp> {
                                 'firstName': _firstNameController.text,
                                 'lastName': _lastNameController.text,
                                 'authority': 2,
-                                'profilePic':"https://firebasestorage.googleapis.com/v0/b/oceanguard-5aea0.appspot.com/o/icon.jfif?alt=media&token=bcee2c14-340c-428d-8135-16f958e42e7e"
                               };
 
                               // Store additional user data in Firestore

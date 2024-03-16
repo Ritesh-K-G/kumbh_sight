@@ -53,10 +53,12 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA6fmaKFVf1m7a-6AB7n0h0juZqIOmO6Z0',
-    appId: '1:546537129822:android:5c017cff56f4435990b1cf',
-    messagingSenderId: '546537129822',
-    projectId: 'oceanguard-5aea0',
-    storageBucket: 'oceanguard-5aea0.appspot.com',
+      apiKey: "AIzaSyDrOmBzhfrQXrpKK4jXY6Ig2abE8heAfsA",
+      authDomain: "kumbh-mela-2de50.firebaseapp.com",
+      projectId: "kumbh-mela-2de50",
+      storageBucket: "kumbh-mela-2de50.appspot.com",
+      appId: "1:437742940483:web:f365d24d14a9d052303ff6",
+      measurementId: "G-X2P490605X",
+      messagingSenderId: "437742940483"
   );
 }

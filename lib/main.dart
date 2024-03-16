@@ -23,9 +23,9 @@ import 'dart:convert';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
-  var smsPermissionStatus = await Permission.sms.request();
-  var notificationPermissionStatus = await Permission.notification.request();
-  var locationPermissionStatus = await Permission.location.request();
+  await Permission.sms.request();
+  await Permission.notification.request();
+  await Permission.location.request();
   subscribeToMessages();
   sendLocations();
   runApp(const MyApp());
@@ -38,7 +38,7 @@ Future<void>sendLocations()async{
     } catch (err) {
       print(err);
     }
-    await Future.delayed(Duration(minutes:5));
+    await Future.delayed(Duration(minutes:1));
   }
 }
 Future<void> subscribeToMessages() async {

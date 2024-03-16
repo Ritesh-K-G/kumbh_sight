@@ -15,10 +15,10 @@ class filterSearch extends StatefulWidget {
 
 class _filterSearchState extends State<filterSearch> {
   final _formkey = GlobalKey<FormState>();
-  String selectedValue = 'Category1';
-  String selectedLocationValue = 'Location1';
-  List<String> categories = ['Category1', 'Category2', 'Category3', 'Category4'];
-  List<String> locations = ['Location1', 'Location2', 'Location3', 'Location4'];
+  String selectedValue = 'LostAndFoundService';
+  String selectedLocationValue = 'Jhalwa';
+  List<String> categories = ['LostAndFoundService', 'Healthcare', 'LawEnforcement', 'Hygiene'];
+  List<String> locations = ['Jhalwa', 'Rajruppur'];
 
   @override
   Widget build(BuildContext context) {

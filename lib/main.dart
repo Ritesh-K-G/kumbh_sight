@@ -144,8 +144,13 @@ class AuthCheck extends StatefulWidget {
 class _AuthCheckState extends State<AuthCheck> {
   @override
   Widget build(BuildContext context) {
+
+    return const AuthScreen();
+    // return ClientNavbar();
+
     // return const AuthScreen();
     return resolverNavbar();
+
     // return StreamBuilder<User?>(
     //   stream: FirebaseAuth.instance.authStateChanges(),
     //   builder: (context, snapshot) {

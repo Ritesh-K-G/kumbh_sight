@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kumbh_sight/constants/color.dart';
 import 'package:kumbh_sight/features/client/carousel/slider.dart';
 import 'package:kumbh_sight/utils/helpers/appHelpers.dart';
 import 'package:kumbh_sight/utils/styles/buttons.dart';
 import 'package:kumbh_sight/utils/styles/text.dart';
+
+import '../../authentication/authScreen.dart';
 
 class Cleanerhomepage extends StatefulWidget {
   const Cleanerhomepage({super.key});
@@ -74,8 +77,10 @@ class _CleanerhomepageState extends State<Cleanerhomepage> {
                   children: [
                     const SizedBox(height: 10),
                     ElevatedButton(
-                      onPressed: () {
-                        // Navigator.push(context, MaterialPageRoute(builder: (context) => ClientNavbar()));
+                      onPressed: () async {
+                        final FirebaseAuth _auth = FirebaseAuth.instance;
+                        await _auth.signOut();
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => AuthScreen()));
                       },
                       style: AppButtonStyles.authButtons.copyWith(
                         minimumSize: MaterialStatePropertyAll(Size(

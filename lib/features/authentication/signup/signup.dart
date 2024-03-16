@@ -257,22 +257,22 @@ class _SignUpState extends State<SignUp> {
                             items: [
                               const DropdownMenuItem(
                                 value: 'Category1',
-                                child: Text('Category1',
+                                child: Text('Lost and Found',
                                     style: AppTextStyles.dropdownText),
                               ),
                               const DropdownMenuItem(
                                 value: 'Category2',
-                                child: Text('Category2',
+                                child: Text('Law enforcement',
                                     style: AppTextStyles.dropdownText),
                               ),
                               const DropdownMenuItem(
                                 value: 'Category3',
-                                child: Text('Category3',
+                                child: Text('Hygiene',
                                     style: AppTextStyles.dropdownText),
                               ),
                               const DropdownMenuItem(
                                 value: 'Category4',
-                                child: Text('Category4',
+                                child: Text('HealthCare',
                                     style: AppTextStyles.dropdownText),
                               ),
                             ],
@@ -303,7 +303,8 @@ class _SignUpState extends State<SignUp> {
                                 'firstName': _firstNameController.text,
                                 'lastName': _lastNameController.text,
                                 'authority': 1,
-                                'profilePic':"https://firebasestorage.googleapis.com/v0/b/oceanguard-5aea0.appspot.com/o/icon.jfif?alt=media&token=bcee2c14-340c-428d-8135-16f958e42e7e"
+                                'category':selectedValue,
+                                'assignedLocation':"jhalwa"
                               };
 
                               // Store additional user data in Firestore
@@ -322,7 +323,6 @@ class _SignUpState extends State<SignUp> {
                                 'firstName': _firstNameController.text,
                                 'lastName': _lastNameController.text,
                                 'authority': 2,
-                                'profilePic':"https://firebasestorage.googleapis.com/v0/b/oceanguard-5aea0.appspot.com/o/icon.jfif?alt=media&token=bcee2c14-340c-428d-8135-16f958e42e7e"
                               };
 
                               // Store additional user data in Firestore

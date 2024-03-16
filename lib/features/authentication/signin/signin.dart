@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kumbh_sight/features/authentication/provider/provider.dart';
 import 'package:kumbh_sight/features/client/clientNavbar.dart';
+import 'package:kumbh_sight/features/resolver/resolverNavbar.dart';
 import 'package:kumbh_sight/utils/helpers/appHelpers.dart';
 import 'package:kumbh_sight/utils/helpers/validators.dart';
 import 'package:kumbh_sight/utils/helpers/wrappers.dart';
@@ -10,6 +11,8 @@ import 'package:kumbh_sight/utils/styles/buttons.dart';
 import 'package:kumbh_sight/utils/styles/text.dart';
 import 'package:provider/provider.dart';
 import 'package:iconsax/iconsax.dart';
+
+import '../../admin/adminNavbar.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key, Key? Key});
@@ -96,9 +99,54 @@ class _SignInState extends State<SignIn> {
                         children: [
                           ElevatedButton(
                             onPressed: true
-                                ? () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ClientNavbar()));
+                                ? () async {
+                              final FirebaseAuth _auth = FirebaseAuth.instance;
+                              try {
+                                // Sign in the user with email and password
+                                final userCredential = await _auth.signInWithEmailAndPassword(
+                                  email: _emailcontroller.text,
+                                  password: _passwordcontroller.text,
+                                );
+                                final userId=userCredential.user?.uid;
+
+                                try {
+                                  // Get the reference to the document in the "user" collection
+                                  DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+
+                                  // Check if the document exists
+                                  if (userSnapshot.exists) {
+                                    // Retrieve the value of the "authority" field
+                                    final authority = userSnapshot.get('authority');
+                                    if(authority==0)
+                                    {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => adminNavbar()));
+                                    }
+                                    else if(authority==1)
+                                    {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => resolverNavbar()));
+                                    }
+                                    else if(authority==2)
+                                    {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => ClientNavbar()));
+                                    }
+                                  } else {
+                                    // Document doesn't exist
+                                    print('Document does not exist');
+                                    return null;
+                                  }
+                                } catch (e) {
+                                  // Handle errors
+                                  print('Error fetching user authority: $e');
+                                  return null;
                                 }
+
+                              } catch (e) {
+                                // Handle sign-in errors
+                                print("Sign-in error: $e");
+                                // Show a snackbar or dialog to display the error to the user
+                              }
+
+                            }
                                 : () async {
                               final FirebaseAuth _auth = FirebaseAuth.instance;
                               try {

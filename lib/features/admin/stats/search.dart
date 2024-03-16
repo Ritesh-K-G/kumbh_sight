@@ -1,6 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:kumbh_sight/constants/color.dart';
+import 'package:kumbh_sight/constants/url.dart';
 import 'package:kumbh_sight/features/admin/stats/searchResults.dart';
+import 'package:kumbh_sight/models/queryDetails.dart';
+import 'package:kumbh_sight/models/userModel.dart';
 import 'package:kumbh_sight/utils/helpers/appHelpers.dart';
 import 'package:kumbh_sight/utils/helpers/wrappers.dart';
 import 'package:kumbh_sight/utils/styles/buttons.dart';
@@ -88,24 +92,71 @@ class _filterSearchState extends State<filterSearch> {
                               children: [
                                 ElevatedButton(
                                   onPressed: () async {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => searchResults()));
-                                    // if (_formkey.currentState!.validate()) {
-                                    //   showDialog(
-                                    //     context: context,
-                                    //     builder: (BuildContext context) {
-                                    //       return const AlertDialog(
-                                    //         content: Column(
-                                    //           mainAxisSize: MainAxisSize.min,
-                                    //           children: [
-                                    //             CircularProgressIndicator(),
-                                    //             SizedBox(height: 16),
-                                    //             Text('Uploading data...'),
-                                    //           ],
-                                    //         ),
-                                    //       );
-                                    //     },
-                                    //   );
-                                    // }
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return const AlertDialog(
+                                            content: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                CircularProgressIndicator(),
+                                                SizedBox(height: 16),
+                                                Text('Opening Stats...'),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
+                                      final Dio dio = Dio();
+                                      try {
+                                        var res = await dio.post('${url.link}/viewComplaintsAdmin',
+                                          data: {
+                                            'location': selectedLocationValue,
+                                            'category': selectedValue
+                                          }
+                                        );
+                                        print(res);
+                                      //   complaints = [] , user = {}
+                                        late List<CardDetail> cardDetails = [];
+                                        List<CardDetail> convertToQueryModels(List<dynamic> list) {
+                                          return list.map((item) => CardDetail.fromMap(item)).toList();
+                                        }
+                                        cardDetails = convertToQueryModels(res.data['complaints']);
+                                        print(cardDetails);
+                                        userDetail userData = userDetail.fromMap(res.data['user'][0] ?? {
+                                          'name': 'name',
+                                          'userID': 'ishaan',
+                                          'assignedLocation': 'Jhalwa',
+                                          'category': 'Hygiene'
+                                        });
+                                        Navigator.pop(context);
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => searchResults(
+                                          userData: userData, cardData: cardDetails)));
+                                      }
+                                      catch(err) {
+                                        print(err);
+                                        Navigator.pop(context);
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: const Text('Response'),
+                                              content: const SingleChildScrollView(
+                                                child: Text('Some Error Occured'),
+                                              ),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const Text('OK'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+
+                                      }
                                   },
                                   style: AppButtonStyles.authButtons.copyWith(
                                       backgroundColor:

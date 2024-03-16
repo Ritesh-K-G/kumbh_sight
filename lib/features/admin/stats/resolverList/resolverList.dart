@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:kumbh_sight/models/queryDetails.dart';
+import 'package:kumbh_sight/models/userModel.dart';
 import 'package:kumbh_sight/utils/widgets/personCards.dart';
 
 class resolverList extends StatefulWidget {
-  const resolverList({super.key});
+  final List<userDetail> cardDetails;
+
+  const resolverList({super.key, required this.cardDetails});
 
   @override
   State<resolverList> createState() => _resolverListState();
 }
 
 class _resolverListState extends State<resolverList> {
-  final List<CardDetail> cardDetails = [
-  ];
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: cardDetails.length,
+      itemCount: widget.cardDetails.length,
       itemBuilder: (context, index) {
-        final cardDetail = cardDetails[index];
+        final cardDetail = widget.cardDetails[index];
         return personCard(cardDetail: cardDetail);
       },
     );

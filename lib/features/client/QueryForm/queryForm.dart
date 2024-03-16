@@ -37,10 +37,10 @@ class _QueryFormState extends State<QueryForm> {
       print("A\nSDJhjfbdzjBKGJVHFDSKBFHVJDSMFBJSJVFNBMSHVJCGVJKYFUDHXGNCHJFDHGXCHJFYDTHXGNCHJTDGXNCHJTDYHGXC");
       setState(() {
         _currentCenter = LatLng(current.latitude, current.longitude);
+        _mapController.animateCamera(
+          CameraUpdate.newLatLng(_currentCenter),
+        );
       });
-      _mapController.animateCamera(
-        CameraUpdate.newLatLng(_currentCenter),
-      );
     });
   }
 
@@ -271,6 +271,7 @@ class _QueryFormState extends State<QueryForm> {
                                           );
                                           print(res.data);
                                           suggestions = res.data['complaintID'];
+                                          suggestions = '$suggestions\nSuggestion: ' + res.data['faq'];
                                         } catch (err) {
                                           suggestions = 'Some Error occurred';
                                         } finally {
@@ -281,7 +282,9 @@ class _QueryFormState extends State<QueryForm> {
                                             builder: (BuildContext context) {
                                               return AlertDialog(
                                                 title: const Text('Response'),
-                                                content: Text(suggestions),
+                                                content: SingleChildScrollView(
+                                                  child: Text(suggestions),
+                                                ),
                                                 actions: <Widget>[
                                                   TextButton(
                                                     onPressed: () {

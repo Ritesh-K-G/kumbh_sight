@@ -31,7 +31,7 @@ class _CardItemState extends State<CardItem> {
                 SizedBox(
                   width: 130,
                   height: 200,
-                  child: Image.asset('assets/gifs/cleaning.gif'),
+                  child: Image.asset(widget.cardDetail.imageUrl),
                 ),
                 const SizedBox(width: 20),
                 Expanded(

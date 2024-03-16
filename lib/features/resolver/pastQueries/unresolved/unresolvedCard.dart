@@ -18,7 +18,7 @@ class _unresolvedCardItemState extends State<unresolvedCardItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => queryDetails(cardDetail: widget.cardDetail,)))
+        Navigator.push(context, MaterialPageRoute(builder: (context) => queryDetails(cardDetail: widget.cardDetail)))
         .then((value) => setState(() {
         }));
       },

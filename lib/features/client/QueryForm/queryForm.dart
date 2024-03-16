@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 import 'package:kumbh_sight/constants/color.dart';
+import 'package:kumbh_sight/constants/url.dart';
 import 'package:kumbh_sight/utils/helpers/appHelpers.dart';
 import 'package:kumbh_sight/utils/helpers/wrappers.dart';
 import 'package:kumbh_sight/utils/styles/buttons.dart';
@@ -258,7 +259,7 @@ class _QueryFormState extends State<QueryForm> {
                                         try {
                                           final dio = Dio();
                                           final res = await dio.post(
-                                            'https://8ca2-2409-40e3-d-3003-d912-c00e-e862-44f0.ngrok-free.app/addComplaint',
+                                            '${url.link}/addComplaint',
                                             data: {
                                               'user': userID,
                                               'description': _descController.text,

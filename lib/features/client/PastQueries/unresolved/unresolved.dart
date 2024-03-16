@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:kumbh_sight/constants/url.dart';
 import 'package:kumbh_sight/models/queryDetails.dart';
 import 'package:kumbh_sight/utils/widgets/card.dart';
 
@@ -27,7 +28,7 @@ class _UnresolvedListState extends State<UnresolvedList> {
   }
   Future<void> fetchCardDetails() async {
     final dio = Dio();
-    final cards = await dio.get('https://8ca2-2409-40e3-d-3003-d912-c00e-e862-44f0.ngrok-free.app/viewComplaintsUserUnResolved?user=$userID');
+    final cards = await dio.get('${url.link}/viewComplaintsUserUnResolved?user=$userID');
     print(cards.data);
     cardDetails = convertToQueryModels(cards.data);
     setState(() {
@@ -42,7 +43,6 @@ class _UnresolvedListState extends State<UnresolvedList> {
         : const Center(child: CircularProgressIndicator());
   }
 
-  @override
   Widget myBuild(BuildContext context) {
     return cardDetails.isEmpty
         ? const Center(child: Text('No UnResolved Queries'))

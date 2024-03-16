@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:kumbh_sight/constants/url.dart';
 import 'package:kumbh_sight/utils/helpers/appHelpers.dart';
 import 'package:kumbh_sight/utils/helpers/wrappers.dart';
 import 'package:kumbh_sight/utils/styles/buttons.dart';
@@ -67,7 +69,61 @@ class _notificationPageState extends State<notificationPage> {
               )),
               const SizedBox(height: 30),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
+                  if (_notificationController.text != '') {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const AlertDialog(
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CircularProgressIndicator(),
+                              SizedBox(height: 16),
+                              Text('Notifying people...'),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+
+                    String suggestions = '';
+                      try {
+                        const String userID = 'ishaan';
+                        final dio = Dio();
+                        final res = await dio.post(
+                          '${url.link}/addComplaint',
+                          data: {
+                            'user': userID,
+                            'notification': _notificationController.text
+                          },
+                        );
+                        print(res.data);
+                        suggestions = res.data['complaintID'];
+                      } catch (err) {
+                        suggestions = 'Some Error occurred';
+                      } finally {
+                        Navigator.pop(context);
+                        _notificationController.clear();
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Response'),
+                              content: Text(suggestions),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
+                    }
                 },
                 style: AppButtonStyles.authButtons.copyWith(
                   minimumSize: MaterialStatePropertyAll(Size(AppHelpers.screenWidth(context)*0.9, 50)),

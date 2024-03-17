@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kumbh_sight/features/admin/stats/resolverList/personStat.dart';
 import 'package:kumbh_sight/features/resolver/homepage/resolverHome.dart';
 import 'package:kumbh_sight/features/resolver/resolverNavbar.dart';
 import 'package:kumbh_sight/utils/fileHandler/files.dart';
@@ -21,14 +22,13 @@ import 'package:googleapis_auth/auth_io.dart';
 import 'dart:convert';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.android);
-  var smsPermissionStatus = await Permission.sms.request();
-  var notificationPermissionStatus = await Permission.notification.request();
-  var locationPermissionStatus = await Permission.location.request();
-  subscribeToMessages();
-  sendLocations();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
+  // await Permission.sms.request();
+  // await Permission.notification.request();
+  // await Permission.location.request();
+  // subscribeToMessages();
+  // sendLocations();
   runApp(const MyApp());
 }
 Future<void>sendLocations()async{
@@ -39,7 +39,7 @@ Future<void>sendLocations()async{
     } catch (err) {
       print(err);
     }
-    await Future.delayed(Duration(minutes:5));
+    await Future.delayed(Duration(minutes:1));
   }
 }
 Future<void> subscribeToMessages() async {
@@ -146,11 +146,15 @@ class _AuthCheckState extends State<AuthCheck> {
   @override
   Widget build(BuildContext context) {
 
+
     // return const AuthScreen();
     // return ClientNavbar();
 
     // return const AuthScreen();
     // return resolverNavbar();
+
+    // return const AuthScreen();
+
 
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),

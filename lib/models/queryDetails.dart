@@ -21,6 +21,17 @@ class CardDetail {
   });
 
   factory CardDetail.fromMap(Map<String, dynamic> map) {
+    const Map<String, List<String>> categoryImageUrls = {
+      'LostAndFoundService' : ['assets/images/lost.png'],
+      'Healthcare' : ['assets/images/doctor.png'],
+      'LawEnforcement' : ['assets/images/police_1.png', 'assets/images/police_2.png'],
+      'Hygiene' : ['assets/images/cleaner_1.png', 'assets/images/cleaner_2.png'],
+    };
+
+    String imageUrl = (categoryImageUrls[map['category']] ?? []).isNotEmpty
+        ? categoryImageUrls[map['category']]![DateTime.now().millisecondsSinceEpoch % categoryImageUrls[map['category']]!.length]
+        : 'assets/images/resolvers.png';
+
     return CardDetail(
       place: map['place'],
       latitude: map['latitude'],
@@ -30,7 +41,7 @@ class CardDetail {
       category: map['category'],
       dateTime: DateTime.fromMillisecondsSinceEpoch(map['date'] * 1000),
       description: map['description'],
-      imageUrl: 'assets/images/kumbh_sight.png',
+      imageUrl: imageUrl,
     );
   }
 }

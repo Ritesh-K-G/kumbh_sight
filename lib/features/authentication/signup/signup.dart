@@ -28,7 +28,7 @@ class _SignUpState extends State<SignUp> {
   bool hideConfirmPassword = true;
   bool asyncCall = false;
   bool isCleaner = false;
-  String selectedValue = 'Category1';
+  String selectedValue = 'Hygiene';
 
   final _formKey = GlobalKey<FormState>();
 
@@ -256,23 +256,23 @@ class _SignUpState extends State<SignUp> {
                           AppWrappers.dropdownWrapper(
                             items: [
                               const DropdownMenuItem(
-                                value: 'Category1',
-                                child: Text('Lost and Found',
+                                value: 'LostAndFoundService',
+                                child: Text('Lost And Found Service',
                                     style: AppTextStyles.dropdownText),
                               ),
                               const DropdownMenuItem(
-                                value: 'Category2',
-                                child: Text('Law enforcement',
+                                value: 'Healthcare',
+                                child: Text('Healthcare',
                                     style: AppTextStyles.dropdownText),
                               ),
                               const DropdownMenuItem(
-                                value: 'Category3',
+                                value: 'LawEnforcement',
+                                child: Text('Law Enforcement',
+                                    style: AppTextStyles.dropdownText),
+                              ),
+                              const DropdownMenuItem(
+                                value: 'Hygiene',
                                 child: Text('Hygiene',
-                                    style: AppTextStyles.dropdownText),
-                              ),
-                              const DropdownMenuItem(
-                                value: 'Category4',
-                                child: Text('HealthCare',
                                     style: AppTextStyles.dropdownText),
                               ),
                             ],

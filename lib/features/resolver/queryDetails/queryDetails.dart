@@ -77,12 +77,12 @@ class _queryDetailsState extends State<queryDetails> {
                         // margin: const EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0),
                         // alignment: const Alignment(-0.6, 0.0),
                         height: AppHelpers.screenHeight(context) * 0.2,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage('assets/gifs/cleaning.gif'),
+                            image: AssetImage(widget.cardDetail.imageUrl),
                             fit: BoxFit.cover,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(30.0)),
                         ),
                         width: MediaQuery.of(context).size.width * 0.4,
                       ),
@@ -98,7 +98,7 @@ class _queryDetailsState extends State<queryDetails> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Location : ${widget.cardDetail.category}\n',
+                    'Location : ${widget.cardDetail.place}\n',
                     style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500

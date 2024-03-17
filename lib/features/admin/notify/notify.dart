@@ -92,14 +92,13 @@ class _notificationPageState extends State<notificationPage> {
                         const String userID = 'ishaan';
                         final dio = Dio();
                         final res = await dio.post(
-                          '${url.link}/addComplaint',
+                          '${url.link}/notification',
                           data: {
-                            'user': userID,
-                            'notification': _notificationController.text
+                            'message': _notificationController.text
                           },
                         );
                         print(res.data);
-                        suggestions = res.data['complaintID'];
+                        suggestions = 'Notification sent successfully';
                       } catch (err) {
                         suggestions = 'Some Error occurred';
                       } finally {

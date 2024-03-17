@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kumbh_sight/models/queryDetails.dart';
+import 'package:kumbh_sight/models/userModel.dart';
 
 class personCard extends StatefulWidget {
-  final CardDetail cardDetail;
+  final userDetail cardDetail;
 
   personCard({required this.cardDetail});
 
@@ -33,19 +33,28 @@ class _personCardState extends State<personCard> {
                   child: Image.asset('assets/images/resolvers.png'),
                 ),
                 const SizedBox(width: 20),
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Name: Ishaan Oberoi\n',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                        'Name: ${widget.cardDetail.name}\n',
+                        style: const TextStyle(
+                          fontSize: 14,
                         ),
                       ),
                       Text(
-                        'Email: oberoi@ishaan.com'),
+                        'Category: ${widget.cardDetail.category}\n',
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                      Text(
+                        'Location: ${widget.cardDetail.assignedLocation}\n',
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
                     ],
                   ),
                 ),

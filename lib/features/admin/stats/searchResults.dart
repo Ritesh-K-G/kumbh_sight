@@ -4,11 +4,15 @@ import 'package:flutter/widgets.dart';
 import 'package:kumbh_sight/constants/color.dart';
 import 'package:kumbh_sight/features/admin/stats/resolverList/resolverList.dart';
 import 'package:kumbh_sight/features/admin/stats/unresolvedQueries/unresolved.dart';
+import 'package:kumbh_sight/models/queryDetails.dart';
+import 'package:kumbh_sight/models/userModel.dart';
 import 'package:kumbh_sight/utils/helpers/appHelpers.dart';
 import 'package:kumbh_sight/utils/styles/text.dart';
 
 class searchResults extends StatefulWidget {
-  const searchResults({super.key});
+  final userDetail userData;
+  final List<CardDetail> cardData;
+  const searchResults({super.key, required this.userData, required this.cardData});
 
   @override
   State<searchResults> createState() => _searchResultsState();
@@ -16,10 +20,12 @@ class searchResults extends StatefulWidget {
 
 class _searchResultsState extends State<searchResults> with TickerProviderStateMixin {
   late TabController _tabController;
-  late List<Widget> tabs = [unresolvedPage(), resolverList()];
+  late List<Widget> tabs;
 
   @override
   void initState() {
+    print(widget.userData.category);
+    tabs = [unresolvedPage(cardDetails: widget.cardData), resolverList(cardDetails: [widget.userData])];
     _tabController = TabController(length: tabs.length, vsync: this);
     super.initState();
   }

@@ -18,7 +18,7 @@ class _CleanerResolvedListState extends State<CleanerResolvedList> {
   @override
   void initState() {
     super.initState();
-    late String? userID = FirebaseAuth.instance.currentUser?.uid;
+    userID = FirebaseAuth.instance.currentUser?.uid;
     (()async =>{
       await fetchCardDetails()
     })();

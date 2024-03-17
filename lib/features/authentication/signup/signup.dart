@@ -23,6 +23,7 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
   TextEditingController();
+  late String _assignedLocation = 'Jhalwa';
 
   bool hidePassword = true;
   bool hideConfirmPassword = true;
@@ -286,6 +287,34 @@ class _SignUpState extends State<SignUp> {
                         ],
                       )
                   ),
+                  Visibility(
+                      visible: isCleaner,
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 10),
+                          AppWrappers.dropdownWrapper(
+                            items: [
+                              const DropdownMenuItem(
+                                value: 'Jhalwa',
+                                child: Text('Jhalwa',
+                                    style: AppTextStyles.dropdownText),
+                              ),
+                              const DropdownMenuItem(
+                                value: 'Rajruppur',
+                                child: Text('Rajruppur',
+                                    style: AppTextStyles.dropdownText),
+                              )
+                            ],
+                            value: _assignedLocation,
+                            onChanged: (value) {
+                              setState(() {
+                                _assignedLocation = value;
+                              });
+                            },
+                          ),
+                        ],
+                      )
+                  ),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -304,7 +333,7 @@ class _SignUpState extends State<SignUp> {
                                 'lastName': _lastNameController.text,
                                 'authority': 1,
                                 'category':selectedValue,
-                                'assignedLocation':"jhalwa"
+                                'assignedLocation': _assignedLocation
                               };
 
                               // Store additional user data in Firestore

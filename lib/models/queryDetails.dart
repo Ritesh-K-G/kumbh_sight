@@ -39,7 +39,7 @@ class CardDetail {
       urgency: map['urgency'],
       queryID: map['queryID'],
       category: map['category'],
-      dateTime: DateTime.fromMillisecondsSinceEpoch(map['date'] * 1000),
+      dateTime: DateTime.fromMillisecondsSinceEpoch(map['time'] * 1000),
       description: map['description'],
       imageUrl: imageUrl,
     );

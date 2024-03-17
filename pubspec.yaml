@@ -25,6 +25,7 @@ dependencies:
   carousel_slider: ^4.2.1
   path_provider: ^2.1.2
   google_maps_flutter: ^2.5.3
+  flutter_launcher_icons: ^0.13.1
   fl_chart: ^0.66.2
   flutter_sms:
     git:
@@ -38,6 +39,10 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^2.0.0
   flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  android: "launcher_icon"
+  image_path: 'assets/images/icon.jpg'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -67,6 +72,7 @@ flutter:
      - assets/images/police_1.png
      - assets/images/police_2.png
      - assets/images/resolvers_1.png
+     - assets/images/icon.jpg
 
   # To add assets to your application, add an assets section, like this:
   #   - images/a_dot_ham.jpeg

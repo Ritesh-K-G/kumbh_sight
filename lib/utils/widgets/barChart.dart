@@ -9,6 +9,7 @@ class BarChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    points.sort((a, b) => a.x.compareTo(b.x));
     return AspectRatio(
       aspectRatio: 2,
       child: Padding(

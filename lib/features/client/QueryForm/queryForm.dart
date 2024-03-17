@@ -10,22 +10,24 @@ import 'package:kumbh_sight/utils/styles/buttons.dart';
 import 'package:kumbh_sight/utils/styles/text.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+
 class QueryForm extends StatefulWidget {
   const QueryForm({super.key});
 
   @override
   State<QueryForm> createState() => _QueryFormState();
 }
+
 class _QueryFormState extends State<QueryForm> {
   double _sliderValue = 1.0;
   final _formkey = GlobalKey<FormState>();
-  late String? userID =   FirebaseAuth.instance.currentUser?.uid;
+  late String? userID = 'ishaan';
   String selectedValue = 'LostAndFoundService';
   bool switchValue = false;
   late GoogleMapController _mapController;
   final TextEditingController _descController = TextEditingController();
   late bool _serviceEnabled;
-  LatLng _currentCenter = LatLng(15.4347, 81.7650);
+  LatLng _currentCenter = LatLng(25.443920, 81.825027);
   Future<Position> _determinePosition() async {
 
     return await Geolocator.getCurrentPosition();
@@ -256,6 +258,7 @@ class _QueryFormState extends State<QueryForm> {
                                         }
                                       } else {
                                         try {
+                                          userID = FirebaseAuth.instance.currentUser?.uid;
                                           final dio = Dio();
                                           final res = await dio.post(
                                             '${url.link}/addComplaint',

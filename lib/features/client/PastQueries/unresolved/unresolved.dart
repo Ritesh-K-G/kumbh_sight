@@ -17,7 +17,6 @@ class _UnresolvedListState extends State<UnresolvedList> {
 
   void initState() {
     super.initState();
-    late String? userID = FirebaseAuth.instance.currentUser?.uid;
     (()async =>{
       await fetchCardDetails()
     })();
@@ -27,6 +26,7 @@ class _UnresolvedListState extends State<UnresolvedList> {
     return list.map((item) => CardDetail.fromMap(item)).toList();
   }
   Future<void> fetchCardDetails() async {
+    userID = FirebaseAuth.instance.currentUser?.uid;
     final dio = Dio();
     final cards = await dio.get('${url.link}/viewComplaintsUserUnResolved?user=$userID');
     print(cards.data);

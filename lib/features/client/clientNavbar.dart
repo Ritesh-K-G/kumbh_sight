@@ -34,7 +34,7 @@ class ClientNavbar extends StatelessWidget {
     const queriesBody(),
     const QueryForm()
   ];
-  final work=sendLocations();
+  // final work=sendLocations();
 
   @override
   Widget build(BuildContext context) {

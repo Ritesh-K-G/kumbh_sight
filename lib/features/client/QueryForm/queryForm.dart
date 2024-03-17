@@ -33,8 +33,6 @@ class _QueryFormState extends State<QueryForm> {
   void initState() {
     super.initState();
     _determinePosition().then((Position current){
-      print(current);
-      print("A\nSDJhjfbdzjBKGJVHFDSKBFHVJDSMFBJSJVFNBMSHVJCGVJKYFUDHXGNCHJFDHGXCHJFYDTHXGNCHJTDGXNCHJTDYHGXC");
       setState(() {
         _currentCenter = LatLng(current.latitude, current.longitude);
         _mapController.animateCamera(

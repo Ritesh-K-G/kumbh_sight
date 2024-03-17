@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kumbh_sight/constants/color.dart';
 import 'package:kumbh_sight/features/admin/homepage/adminHomepage.dart';
+import 'package:kumbh_sight/features/admin/hotZone/hotZone.dart';
 import 'package:kumbh_sight/features/admin/notify/notify.dart';
 import 'package:kumbh_sight/features/admin/stats/search.dart';
 import 'package:provider/provider.dart';
@@ -11,8 +12,9 @@ class adminNavbar extends StatelessWidget {
 
   final List<dynamic> screens = [
     const adminHomepage(),
+    const hotZone(),
     const filterSearch(),
-    const notificationPage()
+    const notificationPage(),
   ];
 
   @override
@@ -32,6 +34,7 @@ class adminNavbar extends StatelessWidget {
           },
           items: const [
             BottomNavigationBarItem(icon: Icon(Iconsax.home), activeIcon: Icon(Iconsax.home5, color: AppColors.Bhagwa), label: "HomePage"),
+            BottomNavigationBarItem(icon: Icon(Iconsax.people), activeIcon: Icon(Iconsax.people5, color: AppColors.Bhagwa), label: "Hot Zone"),
             BottomNavigationBarItem(icon: Icon(Iconsax.hashtag), activeIcon: Icon(Iconsax.hashtag5, color: AppColors.Bhagwa), label: "Stats"),
             BottomNavigationBarItem(icon: Icon(Iconsax.notification), activeIcon: Icon(Iconsax.notification5, color: AppColors.Bhagwa), label: "Notify"),
           ],

@@ -10,6 +10,7 @@ import 'package:kumbh_sight/utils/styles/buttons.dart';
 import 'package:kumbh_sight/utils/styles/text.dart';
 import 'package:kumbh_sight/utils/widgets/barChart.dart';
 import 'package:kumbh_sight/utils/widgets/lineChart.dart';
+import 'package:kumbh_sight/utils/widgets/pieChart.dart';
 
 import '../../authentication/authScreen.dart';
 
@@ -23,7 +24,7 @@ class adminHomepage extends StatefulWidget {
 class _adminHomepageState extends State<adminHomepage> {
 
   bool serverCalled = false;
-  late List<point> lineData, barData;
+  late Map<String, Map<String, dynamic>> pieData = {};
 
   @override
   void initState() {
@@ -36,12 +37,15 @@ class _adminHomepageState extends State<adminHomepage> {
   Future<void> fetchCardDetails() async {
     final dio = Dio();
     final cards = await dio.post('${url.link}/getTotalStats');
-    print(cards.data);
-    // barData = cards.data['barData'].map((e)=>point(x:e['key'].toDouble(),y:e['value'].toDouble())).toList().cast<point>();
-    // lineData = cards.data['lineData'].map((e)=>point(x:e['key'].toDouble(),y:e['value'].toDouble())).toList().cast<point>();
-    // setState(() {
-    //   serverCalled = true;
-    // });
+    print(cards.data['stats']);
+    cards.data['stats'].forEach((key, val){
+      pieData[key] = val;
+    });
+    print(pieData);
+    // print(pieData);
+    setState(() {
+      serverCalled = true;
+    });
   }
 
   @override
@@ -71,51 +75,46 @@ class _adminHomepageState extends State<adminHomepage> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       const Text(
-                                        'Line Chart to show frequency of queries with past hours',
+                                        'Pie Chart to show frequency of categorical queries for every location in past 7 days',
                                         style: TextStyle(
                                             fontSize: 16,
-                                            fontWeight: FontWeight.w400
+                                            fontWeight: FontWeight.bold
                                         ),
                                       ),
-                                      Container(
-                                        width: AppHelpers.screenWidth(context) * 0.9,
-                                        height: AppHelpers.screenHeight(context) * 0.5,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: Colors.black,
-                                            width: 2.0,
+                                      const SizedBox(height: 10),
+                                      ...pieData.entries.map((entry) {
+                                        String key = entry.key;
+                                        Map<String, dynamic> data = entry.value;
+                                        return Container(
+                                          width: AppHelpers.screenWidth(context) * 0.9,
+                                          height: AppHelpers.screenHeight(context) * 0.5,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.black,
+                                              width: 2.0,
+                                            ),
                                           ),
-                                        ),
-                                        child: lineChartWidget(points: lineData),
-                                      ),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Text(
+                                                  key,
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16
+                                                  ),
+                                              ),
+                                              PieChartWidget(title: key, data: data),
+                                            ],
+                                          )
+                                        );
+                                      }).toList(),
                                       const SizedBox(height: 8),
                                       const Divider(
                                         indent: 10,
                                         endIndent: 10,
                                         thickness: 2,
                                       ),
-                                      const SizedBox(height: 8),
-                                      const Text(
-                                          'Histogram to show average response time of resolver to queries'
-                                      ),
-                                      Container(
-                                        width: AppHelpers.screenWidth(context) * 0.9,
-                                        height: AppHelpers.screenHeight(context) * 0.5,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: Colors.black,
-                                            width: 2.0,
-                                          ),
-                                        ),
-                                        child: BarChartWidget(points: barData),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      const Divider(
-                                        indent: 10,
-                                        endIndent: 10,
-                                        thickness: 2,
-                                      ),
-                                      const SizedBox(height: 8)
                                     ],
                                   ),
                           )

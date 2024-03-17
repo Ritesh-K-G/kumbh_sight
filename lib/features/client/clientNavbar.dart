@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kumbh_sight/constants/color.dart';
 import 'package:kumbh_sight/features/client/PastQueries/queries.dart';
@@ -8,15 +9,21 @@ import 'package:kumbh_sight/features/client/homepage/homepage.dart';
 import 'package:provider/provider.dart';
 import 'package:dio/dio.dart';
 import 'package:kumbh_sight/constants/url.dart';
+Future<Position> _determinePosition() async {
+  return await Geolocator.getCurrentPosition();
+}
 Future<void>sendLocations()async{
   while(true) {
     try {
-      await Dio().post('${url.link}/locationupdate',
-          data: {'latitude': 23.34, 'longitude': 12.34,'user':FirebaseAuth.instance.currentUser?.uid});
+      Position current=await _determinePosition();
+      print(current.latitude);
+      var res = await Dio().post('${url.link}/locationupdate',
+          data: {'latitude': current.latitude, 'longitude': current.longitude,'user':FirebaseAuth.instance.currentUser?.uid});
+      print(res);
     } catch (err) {
       print(err);
     }
-    await Future.delayed(Duration(minutes:1));
+    await Future.delayed(Duration(minutes:5));
   }
 }
 class ClientNavbar extends StatelessWidget {

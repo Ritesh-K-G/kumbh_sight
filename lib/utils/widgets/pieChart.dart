@@ -1,12 +1,13 @@
 import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:kumbh_sight/models/points.dart';
 
 class PieChartWidget extends StatelessWidget {
-  final List<int> values;
+  final String title;
+  final Map<String, dynamic> data;
 
-  const PieChartWidget({Key? key, required this.values}) : super(key: key);
+  const PieChartWidget({Key? key, required this.title, required this.data})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,8 @@ class PieChartWidget extends StatelessWidget {
 
     // Generate random colors
     final Random random = Random();
-    for (int i = 0; i < values.length; i++) {
+    int index = 0;
+    data.forEach((key, value) {
       final Color color = Color.fromRGBO(
         random.nextInt(256),
         random.nextInt(256),
@@ -41,12 +43,15 @@ class PieChartWidget extends StatelessWidget {
 
       sections.add(
         PieChartSectionData(
-          value: values[i].toDouble(),
+          value: value.toDouble(),
           color: color,
+          title: key,
           radius: 100,
+          titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
         ),
       );
-    }
+      index++;
+    });
     return sections;
   }
 }

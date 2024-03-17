@@ -12,10 +12,12 @@ class lineChartWidget extends StatelessWidget {
       aspectRatio: 2,
       child: LineChart(
         LineChartData(
+          minX: 0,
+          minY: 0,
           lineBarsData: [
             LineChartBarData(
               spots: points.map((ptr) => FlSpot(ptr.x, ptr.y)).toList(),
-              isCurved: true,
+              isCurved: false,
               dotData: FlDotData(show: true)
             )
           ]

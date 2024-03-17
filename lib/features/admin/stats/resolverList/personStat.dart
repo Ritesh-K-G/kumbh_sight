@@ -3,18 +3,16 @@ import 'package:kumbh_sight/models/points.dart';
 import 'package:kumbh_sight/utils/helpers/appHelpers.dart';
 import 'package:kumbh_sight/utils/widgets/barChart.dart';
 import 'package:kumbh_sight/utils/widgets/lineChart.dart';
-import 'package:kumbh_sight/utils/widgets/pieChart.dart';
 
 class personStat extends StatefulWidget {
-  const personStat({super.key});
+  final List<point> lineData, barData;
+  const personStat({super.key, required this.lineData, required this.barData});
 
   @override
   State<personStat> createState() => _personStatState();
 }
 
 class _personStatState extends State<personStat> {
-  
-  late List<point> pts = [point(x: 0, y: 0), point(x: 1, y: 1), point(x: 2, y: 2)];
   
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,11 @@ class _personStatState extends State<personStat> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Line Chart'
+                  'Line Chart to show frequency of queries with past hours',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400
+                  ),
                 ),
                 Container(
                   width: AppHelpers.screenWidth(context) * 0.9,
@@ -43,7 +45,7 @@ class _personStatState extends State<personStat> {
                       width: 2.0,
                     ),
                   ),
-                  child: lineChartWidget(points: pts),
+                  child: lineChartWidget(points: widget.lineData),
                 ),
                 const SizedBox(height: 8),
                 const Divider(
@@ -53,7 +55,7 @@ class _personStatState extends State<personStat> {
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                    'Histogram'
+                    'Histogram to show average response time of resolver to queries'
                 ),
                 Container(
                   width: AppHelpers.screenWidth(context) * 0.9,
@@ -64,7 +66,7 @@ class _personStatState extends State<personStat> {
                       width: 2.0,
                     ),
                   ),
-                  child: BarChartWidget(points: pts),
+                  child: BarChartWidget(points: widget.barData),
                 ),
                 const SizedBox(height: 8),
                 const Divider(
@@ -72,28 +74,7 @@ class _personStatState extends State<personStat> {
                   endIndent: 10,
                   thickness: 2,
                 ),
-                const SizedBox(height: 8),
-                const Text(
-                    'Pie Chart'
-                ),
-                Container(
-                  width: AppHelpers.screenWidth(context) * 0.9,
-                  height: AppHelpers.screenHeight(context) * 0.5,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2.0,
-                    ),
-                  ),
-                  child: PieChartWidget(values: [1, 2, 3, 4, 5, 6],),
-                ),
-                const SizedBox(height: 8),
-                const Divider(
-                  indent: 10,
-                  endIndent: 10,
-                  thickness: 2,
-                ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 8)
               ],
             ),
           ),

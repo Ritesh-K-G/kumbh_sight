@@ -22,26 +22,15 @@ import 'package:googleapis_auth/auth_io.dart';
 import 'dart:convert';
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
-  // await Permission.sms.request();
-  // await Permission.notification.request();
-  // await Permission.location.request();
-  // subscribeToMessages();
-  // sendLocations();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
+  await Permission.sms.request();
+  await Permission.notification.request();
+  await Permission.location.request();
+  subscribeToMessages();
   runApp(const MyApp());
 }
-Future<void>sendLocations()async{
-  while(true) {
-    try {
-      await Dio().post('http://localhost:8080/locationupdate',
-          data: {'latitude': 23.34, 'longitude': 12.34,'user':'Ritesh'});
-    } catch (err) {
-      print(err);
-    }
-    await Future.delayed(Duration(minutes:1));
-  }
-}
+
 Future<void> subscribeToMessages() async {
   const _projectId = 'prime-mechanic-413516';
   const _subscriptionId = 'createNotifications-sub';

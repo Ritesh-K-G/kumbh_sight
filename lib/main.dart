@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kumbh_sight/features/admin/stats/resolverList/personStat.dart';
 import 'package:kumbh_sight/features/resolver/homepage/resolverHome.dart';
 import 'package:kumbh_sight/features/resolver/resolverNavbar.dart';
 import 'package:kumbh_sight/utils/fileHandler/files.dart';
@@ -146,10 +147,7 @@ class _AuthCheckState extends State<AuthCheck> {
   Widget build(BuildContext context) {
 
     return const AuthScreen();
-    // return ClientNavbar();
-
-    // return const AuthScreen();
-    return resolverNavbar();
+    // return personStat();
 
     // return StreamBuilder<User?>(
     //   stream: FirebaseAuth.instance.authStateChanges(),

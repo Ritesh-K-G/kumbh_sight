@@ -164,7 +164,7 @@ class _AuthCheckState extends State<AuthCheck> {
                     return ClientNavbar();
                 }
               }
-              return Center(child: CircularProgressIndicator()); // Show loading while fetching user data
+              return const Center(child: CircularProgressIndicator()); // Show loading while fetching user data
             },
           );
         } else {

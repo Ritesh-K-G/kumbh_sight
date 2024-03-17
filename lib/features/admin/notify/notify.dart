@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kumbh_sight/constants/url.dart';
 import 'package:kumbh_sight/utils/helpers/appHelpers.dart';
@@ -89,7 +90,7 @@ class _notificationPageState extends State<notificationPage> {
 
                     String suggestions = '';
                       try {
-                        const String userID = 'ishaan';
+                        late String? userID = FirebaseAuth.instance.currentUser?.uid;
                         final dio = Dio();
                         final res = await dio.post(
                           '${url.link}/notification',

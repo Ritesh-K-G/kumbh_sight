@@ -17,7 +17,7 @@ class _UnresolvedListState extends State<UnresolvedList> {
 
   void initState() {
     super.initState();
-    userID = 'ishaan';
+    late String? userID = FirebaseAuth.instance.currentUser?.uid;
     (()async =>{
       await fetchCardDetails()
     })();

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kumbh_sight/constants/url.dart';
 import 'package:kumbh_sight/models/queryDetails.dart';
@@ -17,7 +18,7 @@ class _CleanerResolvedListState extends State<CleanerResolvedList> {
   @override
   void initState() {
     super.initState();
-    userID = 'ishaan';
+    late String? userID = FirebaseAuth.instance.currentUser?.uid;
     (()async =>{
       await fetchCardDetails()
     })();

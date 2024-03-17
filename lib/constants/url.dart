@@ -1,5 +1,5 @@
 class url {
-  static const String link = 'https://062b-152-58-157-200.ngrok-free.app';
+  static const String link = 'https://afc1-2409-40e3-104b-49ff-9147-5ce7-a053-342e.ngrok-free.app';
   static const Map<String, List<String>> imageLink = {
     'LostAndFoundService' : ['assets/images/lost.png'],
     'Healthcare' : ['assets/images/doctor.png'],

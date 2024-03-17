@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -89,10 +91,10 @@ Future<void> subscribeToMessages() async {
 Future<void> showNotification(String payload) async {
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
-      id: 10,
+      id: Random().nextInt(10000),
       channelKey: 'basic_channel',
-      title: 'New Notification',
-      body: 'This is an example notification',
+      title: 'KumbhSight Notification',
+      body: payload,
     ),
   );
 }

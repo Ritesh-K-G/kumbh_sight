@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kumbh_sight/models/points.dart';
 import 'package:kumbh_sight/utils/helpers/appHelpers.dart';
+import 'package:kumbh_sight/utils/widgets/barChart.dart';
 import 'package:kumbh_sight/utils/widgets/lineChart.dart';
+import 'package:kumbh_sight/utils/widgets/pieChart.dart';
 
 class personStat extends StatefulWidget {
   const personStat({super.key});
@@ -62,7 +64,7 @@ class _personStatState extends State<personStat> {
                       width: 2.0,
                     ),
                   ),
-                  child: lineChartWidget(points: pts),
+                  child: BarChartWidget(points: pts),
                 ),
                 const SizedBox(height: 8),
                 const Divider(
@@ -83,7 +85,7 @@ class _personStatState extends State<personStat> {
                       width: 2.0,
                     ),
                   ),
-                  child: lineChartWidget(points: pts),
+                  child: PieChartWidget(values: [1, 2, 3, 4, 5, 6],),
                 ),
                 const SizedBox(height: 8),
                 const Divider(

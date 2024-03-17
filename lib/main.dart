@@ -22,13 +22,13 @@ import 'package:googleapis_auth/auth_io.dart';
 import 'dart:convert';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
-  await Permission.sms.request();
-  await Permission.notification.request();
-  await Permission.location.request();
-  subscribeToMessages();
-  sendLocations();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
+  // await Permission.sms.request();
+  // await Permission.notification.request();
+  // await Permission.location.request();
+  // subscribeToMessages();
+  // sendLocations();
   runApp(const MyApp());
 }
 Future<void>sendLocations()async{
@@ -146,8 +146,8 @@ class _AuthCheckState extends State<AuthCheck> {
   @override
   Widget build(BuildContext context) {
 
-    return const AuthScreen();
-    // return personStat();
+    // return const AuthScreen();
+    return personStat();
 
     // return StreamBuilder<User?>(
     //   stream: FirebaseAuth.instance.authStateChanges(),

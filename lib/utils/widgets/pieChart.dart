@@ -14,12 +14,12 @@ class PieChartWidget extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 2,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(0.0),
         child: PieChart(
           PieChartData(
-            centerSpaceRadius: 5,
+            centerSpaceRadius: 10,
             borderData: FlBorderData(show: true),
-            sectionsSpace: 2,
+            sectionsSpace: 4,
             sections: _buildPieChartSections(),
           ),
         ),
@@ -34,10 +34,11 @@ class PieChartWidget extends StatelessWidget {
     final Random random = Random();
     int index = 0;
     data.forEach((key, value) {
+      int bias=random.nextInt(3);
       final Color color = Color.fromRGBO(
-        random.nextInt(256),
-        random.nextInt(256),
-        random.nextInt(256),
+        random.nextInt(256)+(bias==0?150:0),
+        random.nextInt(256)+(bias==1?150:0),
+        random.nextInt(256)+(bias==2?150:0),
         1,
       );
 
@@ -46,8 +47,8 @@ class PieChartWidget extends StatelessWidget {
           value: value.toDouble(),
           color: color,
           title: key,
-          radius: 100,
-          titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+          radius: 115,
+          titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.black),
         ),
       );
       index++;

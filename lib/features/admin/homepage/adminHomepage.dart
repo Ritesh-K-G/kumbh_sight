@@ -81,7 +81,7 @@ class _adminHomepageState extends State<adminHomepage> {
                                             fontWeight: FontWeight.bold
                                         ),
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 14),
                                       ...pieData.entries.map((entry) {
                                         String key = entry.key;
                                         Map<String, dynamic> data = entry.value;

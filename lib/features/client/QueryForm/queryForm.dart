@@ -164,17 +164,7 @@ class _QueryFormState extends State<QueryForm> {
                                         position: _currentCenter,
                                         infoWindow: InfoWindow(title: 'Marker Title', snippet: 'Marker Snippet'),
                                       ),
-                                    },
-                                    circles: {
-                                      Circle(
-                                        circleId: CircleId('circle_id'),
-                                        center: _currentCenter,
-                                        radius: 1000, // Radius in meters
-                                        fillColor: Colors.blue.withOpacity(0.3),
-                                        strokeWidth: 2,
-                                        strokeColor: Colors.blue,
-                                      ),
-                                    },
+                                    }
                                   ),
 
                             ),

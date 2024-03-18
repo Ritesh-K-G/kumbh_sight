@@ -30,7 +30,7 @@ class _hotZoneState extends State<hotZone> {
     final Dio dio = Dio();
     var res = await dio.post('${url.link}/predictionsML');
     print(res.data);
-    Map<String,point>rev={'Jhalwa':point(x:25.434711,y:81.765030),'Rajruppur':point(x:25.4374395,y:81.79859822547)};
+    Map<String,point>rev={'Jhalwa':point(x:25.434711,y:81.765030),'Rajruppur':point(x:25.4374395,y:81.79859822547),"Dhoomanganj":point(x:25.4542189,y:81.7946294),"Bajha":point(x:25.4542,y: 81.75)};
     int threshold=500;
     res.data.forEach((key, value) {
       markers.add(
@@ -44,7 +44,7 @@ class _hotZoneState extends State<hotZone> {
           Circle(
             circleId: CircleId(key),
             center:  LatLng(rev[key]!.x,rev[key]!.y),
-            radius: 500, // Radius in meters
+            radius: 500,
             fillColor: value>threshold?Colors.red.withOpacity(0.3):Colors.green.withOpacity(0.3),
             strokeWidth: 2,
             strokeColor: value>threshold?Colors.red:Colors.green,

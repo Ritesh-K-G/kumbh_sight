@@ -21,7 +21,7 @@ class QueryForm extends StatefulWidget {
 class _QueryFormState extends State<QueryForm> {
   double _sliderValue = 1.0;
   final _formkey = GlobalKey<FormState>();
-  late String? userID = 'ishaan';
+  late String? userID = FirebaseAuth.instance.currentUser!.uid;
   String selectedValue = 'LostAndFoundService';
   bool switchValue = false;
   late GoogleMapController _mapController;
